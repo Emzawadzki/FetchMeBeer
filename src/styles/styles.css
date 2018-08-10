@@ -1,0 +1,78 @@
+:root {
+  --font-title: 'Ubuntu', sans-serif;
+}
+
+body {
+  background-color: beige;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+}
+
+.header {
+  padding-top: 1.5rem;
+}
+
+.header__title {
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  margin-left: 1.5rem;
+}
+
+.header__title--color {
+  color: var(--green);
+}
+
+.list__element {
+  max-height: 350px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list__figure {
+  padding: 3%;
+  height: 84%;
+  width: 84%;
+  text-align: center;
+  background-color: #fff;
+  margin: 0;
+  transition: 0.5s all;
+  cursor: pointer;
+}
+
+.list__figure:hover {
+  transform: scale(1.1, 1.1);
+  box-shadow: 0px 0px 20px 0px rgba(60, 138, 78, 0.219);
+}
+
+.list__img {
+  height: 70%;
+  width: auto;
+  margin: 0 auto;
+  border: none;
+}
+
+.list__figcaption {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.list__title {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  color: var(--green);
+  text-shadow: 0px 0px 7px #24d44c;
+}
+
+.list__descr {
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gray);
+}
