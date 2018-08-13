@@ -1,24 +1,17 @@
-import expect from 'expect';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+/* global expect */
+/* global shallow */
+
 import Header from './Header';
 
-function setup() {
-  let renderer = TestUtils.createRenderer();
-  renderer.render(<Header/>);
-  let output = renderer.getRenderOutput();
-
-  return {
-    renderer,
-    output
-  }
-}
-
 describe('Header component', () => {
-  it('renders header and h1', () => {
-    const {output} = setup();
-    expect(output.type).toBe('header');
-    const h1 = output.props.children.props.children;
-    expect(h1.type).toBe('h1');
+  it('renders header', () => {
+    const wrapper = shallow(<Header/>);
+    expect(wrapper.find('header')).to.have.length(1);
+  });
+
+  it('renders h1', () => {
+    const wrapper = shallow(<Header/>);
+    expect(wrapper.find('h1')).to.have.length(1);
   });
 });

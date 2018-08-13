@@ -1,22 +1,14 @@
-import expect from 'expect';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+import 'isomorphic-fetch';
+
+/* global expect */
+/* global shallow */
+
 import List from './List';
 
-function setup() {
-  let renderer = TestUtils.createRenderer();
-  renderer.render(<List/>);
-  let output = renderer.getRenderOutput();
-
-  return {
-    renderer,
-    output
-  }
-}
-
 describe('List component', () => {
-  it('renders container div', () => {
-    const {output} = setup();
-    expect(output.type).toBe('div');
+  it('renders content', () => {
+    const wrapper = shallow(<List/>);
+    expect(wrapper.find('div')).to.have.length(2);
   });
 });

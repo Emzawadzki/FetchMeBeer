@@ -7,7 +7,7 @@ const Header = () => {
         <h1 className="header__title"><span className="header__title--color">Beer</span>Guru</h1>
       </div>
     </header>
-  )
-}
+  );
+};
 
 export default Header;
