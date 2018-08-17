@@ -1,26 +1,10 @@
-process.env.NODE_ENV = 'test';
+import { expect } from 'chai';
+import { mount, render, shallow, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-require('babel-register')();
+configure({ adapter: new Adapter() });
 
-require.extensions['.css'] = function () {return null;};
-require.extensions['.png'] = function () {return null;};
-require.extensions['.jpg'] = function () {return null;};
-
-let jsdom = require('jsdom').jsdom;
-
-let exposedProperties = ['window', 'navigator', 'document'];
-
-global.document = jsdom('');
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === 'undefined') {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
-  }
-});
-
-global.navigator = {
-  userAgent: 'node.js'
-};
-
-// documentRef = document;
+global.expect = expect;
+global.mount = mount;
+global.render = render;
+global.shallow = shallow;
