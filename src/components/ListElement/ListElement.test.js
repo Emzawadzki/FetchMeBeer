@@ -1,8 +1,8 @@
 import React from 'react';
-import ListElement from './ListElement';
-
 /* global expect */
 /* global shallow */
+
+import ListElement from './ListElement';
 
 describe('ListElement component', () => {
   it('renders content', () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import ScrollLock from 'react-scrolllock';
 
 import ModalMainElement from '../ModalMainElement/ModalMainElement';
 import ModalSecElement from '../ModalSecElement/ModalSecElement';
@@ -10,7 +11,6 @@ const query = 'beers/';
 
 export default class Modal extends React.Component {
 	constructor(props) {
-		console.log(props);
 		super(props);
 		this.state = {
 			isMainLoading: true,
@@ -22,6 +22,9 @@ export default class Modal extends React.Component {
 			secData: null,
 			secDataAccuracy: 1
 		};
+	}
+
+	componentDidMount() {
 		fetchBeer.call(this, this.props.match.params.id);
 	}
 
@@ -34,7 +37,7 @@ export default class Modal extends React.Component {
 		return;
 	}
 
-	handleAnywhereClick = e => {
+	handleEscapeClick = e => {
 		this.props.history.push('/');
 		return;
 	}
@@ -70,7 +73,7 @@ export default class Modal extends React.Component {
 		let relatedBeersSection;
 		if (this.state.isSecLoading) {
 			relatedBeersSection = (
-				<section className="row mod__related">
+				<section className="row mod__sec">
 					<div className="loading"/>
 				</section>
 			);
@@ -80,7 +83,7 @@ export default class Modal extends React.Component {
 				return(
 					<Link
 						key={i}
-						className="mod__sec-link col-sm-4"
+						className="mod__sec-link col-4"
 						to={"/beer/" + el.id}
 						onClick={() => {
 							this.changeMainBeer(el.id);
@@ -94,8 +97,8 @@ export default class Modal extends React.Component {
 				);
 			});
 			relatedBeersSection = (
-				<section className="row mod__related">
-					<p className="mod__related-title">
+				<section className="row mod__sec">
+					<p className="mod__sec-info">
 						You might also like:
 					</p>
 					{secElements}
@@ -107,13 +110,18 @@ export default class Modal extends React.Component {
 		return(
 			<div
 				className="mod"
-				onClick={this.handleAnywhereClick}>
+				onClick={this.handleEscapeClick}>
 				<div
 					className="mod__body"
 					onClick={this.handleBodyClick}>
+					<button
+						className="mod__escape-btn"
+						onClick={this.handleEscapeClick}
+					/>
 					{mainBeerSection}
 					{relatedBeersSection}
 				</div>
+				<ScrollLock/>
 			</div>
 		);
 	}
@@ -134,7 +142,6 @@ Modal.propTypes = {
 
 // Fetch main item by ID (selected by user)
 const fetchBeer = function(beerId) {
-	console.log('Fetch beer: INIT');
 	fetch(apiUrl + query + beerId)
 		.then(response => {
 			if (response.ok) {
@@ -149,7 +156,6 @@ const fetchBeer = function(beerId) {
 				isMainLoading: false
 			}, () => {
 				// Fetchnig sec items here
-				console.dir(this.state.mainData);
 				const relProps = getRelatedBeersData(this.state.mainData, this.state.secDataAccuracy);
 				fetchRelatedBeers.call(this, relProps);
 			});
@@ -159,7 +165,6 @@ const fetchBeer = function(beerId) {
 
 // Fetch items similar to main items
 const fetchRelatedBeers = function(relProps) {
-	console.log('Fetch Reladed Beers: INIT');
 	if(!relProps) {
 		return false;
 	}
@@ -187,7 +192,6 @@ const fetchRelatedBeers = function(relProps) {
 				isSecLoading: data.length > 3 ? false : true,
 				secDataAccuracy: this.state.secDataAccuracy * 2
 			}, () => {
-				console.log('Sec data length:' + this.state.secData.length + " Accuracy: " + this.state.secDataAccuracy + ' Is loading? ' + this.state.isSecLoading);
 				if (this.state.secData.length < 4) {
 					const newRelProps = getRelatedBeersData(this.state.mainData, this.state.secDataAccuracy);
 					fetchRelatedBeers.call(this, newRelProps);
@@ -203,7 +207,6 @@ const fetchRelatedBeers = function(relProps) {
 
 // Get data of items similar to main item
 const getRelatedBeersData = (beerData, accFact = 1) => {
-	console.log('Get Reladed Beer Data: INIT');
 	// Initial function conditions
 	if (!beerData) {
 		return false;
@@ -248,8 +251,6 @@ const getRelatedBeersData = (beerData, accFact = 1) => {
 
 // Choose items to display as secondary
 const getRelatedBeers = function(beerData, mainBeerId) {
-	console.log('Get Reladed Beers: INIT');
-	console.dir(beerData.length);
 	if(beerData.length < 4 || !mainBeerId) {
 		return false;
 	}
@@ -258,8 +259,6 @@ const getRelatedBeers = function(beerData, mainBeerId) {
 	let trimmedBeerData = [...beerData].filter(el => {
 		return el.id !== Number(mainBeerId);
 	});
-	console.log(beerData);
-	console.log(trimmedBeerData);
 
 	// Get 3 unique elements from list
 	const secElementsData = randomizeUniqueElements(trimmedBeerData, 3, 'id');
@@ -291,7 +290,6 @@ function randomizeUniqueElements(inputArr, num, uniqueProperty = "id") {
 	});
 
 	// Function body
-	console.log('in function body');
 	let resultArray = [];
 	let uniquePropertyArray = [];
 	if(inputArr.length === num) {
@@ -300,7 +298,6 @@ function randomizeUniqueElements(inputArr, num, uniqueProperty = "id") {
 		// Get unique IDs to be returned
 		while(uniquePropertyArray.length < num) {
 			const randomElementProperty = inputArr[getRandomNum(0, inputArr.length - 1)][uniqueProperty];
-			console.log(uniquePropertyArray);
 			if (uniquePropertyArray.indexOf(randomElementProperty) > -1) continue;
 			uniquePropertyArray.push(randomElementProperty);
 		}
@@ -315,3 +312,13 @@ function randomizeUniqueElements(inputArr, num, uniqueProperty = "id") {
 
 	return resultArray;
 }
+
+// Exporting functions for testing purposes
+export {
+	fetchBeer,
+	fetchRelatedBeers,
+	getRelatedBeersData,
+	getRelatedBeers,
+	getRandomNum,
+	randomizeUniqueElements
+};
