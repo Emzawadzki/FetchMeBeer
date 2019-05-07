@@ -1,15 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import * as serviceWorker from "./serviceWorker";
 
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import './styles/styles.css';
+import "./styles/bootstrap-reboot.min.css";
+import "./styles/bootstrap-grid.min.css";
+import "./styles/styles.css";
 
-import App from './components/App';
+import App from "./components/App";
 
-ReactDOM.render((
+ReactDOM.render(
     <BrowserRouter>
-        <App/>
-    </BrowserRouter>
-    ), document.getElementById('app')
+        <App />
+    </BrowserRouter>,
+    document.getElementById("app")
 );
+
+serviceWorker.unregister();
