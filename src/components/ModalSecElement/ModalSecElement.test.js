@@ -11,7 +11,7 @@ describe('ModalSecElement component', () => {
       image: 'test-text',
       id: 1
     };
-    const wrapper = shallow(<ModalSecElement/>);
+    const wrapper = shallow(<ModalSecElement {...props} />);
     expect(wrapper.find('div')).to.have.length(1);
   });
 });

@@ -15,7 +15,7 @@ describe('ModalMainElement component', () => {
       ebc: 1.4,
       description: 'test-text'
     };
-    const wrapper = shallow(<ModalMainElement/>);
+    const wrapper = shallow(<ModalMainElement {...props} />);
     expect(wrapper.find('section')).to.have.length(1);
   });
 });
