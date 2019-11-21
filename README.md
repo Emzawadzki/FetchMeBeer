@@ -1,9 +1,7 @@
 # FetchMeBeer
 > React application with use of external API
 
-## Installation
-> * yarn install
-> * yarn start
+### [LIVE PREVIEW](https://emzawadzki.github.io/FetchMeBeer/)
 
 ## Used technologies
 > <img alt="HTML" src="https://seeklogo.com/images/H/html5-logo-EF92D240D7-seeklogo.com.png" height="120"/><img style="margin: 0 20px" alt="CSS" src="https://seeklogo.com/images/C/css3-logo-8724075274-seeklogo.com.png" height="120"/><img style="margin: 0 20px" alt="JS" src="https://seeklogo.com/images/J/java-script-js-logo-ACF4AE5082-seeklogo.com.png" height="120"/><img style="margin: 0 20px" alt="React" src="http://icons-for-free.com/free-icons/png/128/1322468.png" height="120"/><img style="margin: 0 20px" alt="Webpack" src="https://seeklogo.com/images/W/webpack-logo-9E66EE203A-seeklogo.com.png" height="120"/>
@@ -17,10 +15,6 @@
 >     * IBU
 >     * EBC
 > * Basic components and unit functions test coverage
-
-## Upcoming features
-> * Development version
-> * Minor bugfixes
 
 ## Preview
 <img src="./desktop_view.JPG" alt="Layout preview"/>
