@@ -1,6 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import ListElement from '../ListElement/ListElement';
 import ErrorMsg from '../common/ErrorMsg';
